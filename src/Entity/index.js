@@ -25,21 +25,28 @@ fs.readdirSync(__dirname)
   })
   .forEach(function(file) {
     var model = sequelize.import(path.join(__dirname, file));
+    console.log(model.name)
     db[model.name] = model;
   });
 
-
+console.log(db)
 //관계를 만들어 주는 부분  
+// 정의한 모델에 대한 싱크작업을 실행합니다.
+db.user.sync().then(() => {
+  db.book.sync();
+  db.infomation.sync();
+  db.memo.sync();
+  db.topic.sync()
+  db.MemoTopic.sync()
+});
+
 config.initAssociations(db) // 모델간의 relation을 설정해주는 작업을 한다.
 // config.initHooks(db); //hooks설정시 주석을 제거한다
 
-db.user.sync().then(() => {
-  db.book.sync();
-});
+
 
 //db.Publisher.drop();
 //db.Publisher.sync({force: true});
-
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

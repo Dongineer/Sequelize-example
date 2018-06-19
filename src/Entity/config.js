@@ -8,27 +8,13 @@
 // 이 뿐만 아니라 1:1 관계를 위한 hasOne(), belongsTo(), 1:M 관계를 위한 hasMany() 메소드도 지원한다.
 // 참고로 DELETE 시에 CASCADE되는 것은 N:M 관계일 때 뿐이며, 1:1, 1:M 관계에서는 SET NULL이다.
 
-// hasOne Example
-var config = {
-  initAssociations: function(db) {
-    db.user.hasOne(db.book, { foreignKey: 'user_id' });
-    db.book.belongsTo(db.user, { foreignKey: 'user_id'})
-  },
-  initHooks: function(db) {
-    db.book.hook('beforeCreate', function() {
-    });
-    db.book.beforeCreate(function() {
-    });
-  }
-};
-
 // hasMany Example
 var config = {
   initAssociations: function(db) {
     db.user.hasMany(db.book, { foreignKey: 'user_id' });
-    db.user.hasMany(db.memo, { foreignKey: 'user_name'})
-    db.book.belongsTo(db.user, { foreignKey: 'user_id'})
-    db.memo.belongsTo(db.user, { foreignKey: 'user_name'})
+    db.user.hasMany(db.memo, { foreignKey: 'user_id'})
+    db.user.hasOne(db.infomation, { foreignKey: 'user_id'})
+    db.memo.belongsToMany(db.topic, { through : 'MemoTopic', foreignKey: 'id', otherKey: 'id'})
   },
   initHooks: function(db) {
     db.book.hook('beforeCreate', function() {
