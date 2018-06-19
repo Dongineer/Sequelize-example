@@ -27,6 +27,9 @@ fs.readdirSync(__dirname)
     var model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });
+
+
+//관계를 만들어 주는 부분  
 config.initAssociations(db) // 모델간의 relation을 설정해주는 작업을 한다.
 // config.initHooks(db); //hooks설정시 주석을 제거한다
 

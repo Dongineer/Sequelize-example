@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataType) => {
+module.exports = (sequelize, Sequlize) => {
   return sequelize.define('book', {
     username: {
       type: DataType.INTEGER,

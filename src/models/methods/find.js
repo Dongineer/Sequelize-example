@@ -123,7 +123,12 @@ select.findAndCountAllJoin = (callback) => {
    include: [
     //  { model: book, required: true }, // required 명령어를 사용하면  inner join을 하게 된다.
     /* where 절에 들어있는 컬럼은 기본적으로 required 상태가 된다. */
-     { model: book, where : { user_id: true } }, 
+     { model: book, where : { user_id: true },
+    // Belong-To-Many인 모델에서 where절을 사용하기 위해서는
+    through: {
+      attribute: ['cloumn1', 'column2', 'column3'],
+      where: { compeleted: true},
+    }}, 
    ],
    limit: 1
   })
